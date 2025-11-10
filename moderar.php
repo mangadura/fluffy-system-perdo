@@ -1,32 +1,26 @@
 <?php
 include "conexao.php";
-
-
 if(isset($_POST['atualiza'])){
     $idatualiza = intval($_POST['id']);
-    $nome       = mysqli_real_escape_string($conexao, $_POST['nome']);
+    $name       = mysqli_real_escape_string($conexao, $_POST['name']);
     $email      = mysqli_real_escape_string($conexao, $_POST['email']);
     $msg        = mysqli_real_escape_string($conexao, $_POST['msg']);
 
-    $sql = "UPDATE taissa_tabela SET nome='$nome', email='$email', mensagem='$msg' WHERE id=$idatualiza";
+    $sql = "UPDATE Cliet SET nome='$nome', email='$email', mensagem='$msg' WHERE id=$idatualiza";
     mysqli_query($conexao, $sql) or die("Erro ao atualizar: " . mysqli_error($conexao));
     header("Location: moderar.php");
     exit;
 }
-
-
 if(isset($_GET['acao']) && $_GET['acao'] == 'excluir'){
     $id = intval($_GET['id']);
-    mysqli_query($conexao, "DELETE FROM taissa_tabela WHERE id=$id") or die("Erro ao deletar: " . mysqli_error($conexao));
+    mysqli_query($conexao, "DELETE FROM Client WHERE id=$id") or die("Erro ao deletar: " . mysqli_error($conexao));
     header("Location: moderar.php");
     exit;
 }
-
-
 $editar_id = isset($_GET['acao']) && $_GET['acao'] == 'editar' ? intval($_GET['id']) : 0;
 $recado_editar = null;
 if($editar_id){
-    $res = mysqli_query($conexao, "SELECT * FROM taissa_tabela WHERE id=$editar_id");
+    $res = mysqli_query($conexao, "SELECT * FROM Client WHERE id=$editar_id");
     $recado_editar = mysqli_fetch_assoc($res);
 }
 ?>
@@ -43,31 +37,29 @@ if($editar_id){
 <div id="header">
     <h1>Mural de pedidos</h1>
 </div>
-
-<?php if($recado_editar): ?>
+<?php if($Client_editar): ?>
 <div id="formulario_mural">
 <form method="post">
     <label>Nome:</label>
-    <input type="text" name="nome" value="<?php echo htmlspecialchars($recado_editar['nome']); ?>"/><br/>
+    <input type="text" name="name" value="<?php echo htmlspecialchars($Client_editar['name']); ?>"/><br/>
     <label>Email:</label>
-    <input type="text" name="email" value="<?php echo htmlspecialchars($recado_editar['email']); ?>"/><br/>
+    <input type="text" name="email" value="<?php echo htmlspecialchars($Client_editar['email']); ?>"/><br/>
     <label>Mensagem:</label>
-    <textarea name="msg"><?php echo htmlspecialchars($recado_editar['mensagem']); ?></textarea><br/>
-    <input type="hidden" name="id" value="<?php echo $recado_editar['id']; ?>"/>
-    <input type="submit" name="atualiza" value="Modificar taissa_tabela" class="btn"/>
+    <textarea name="msg"><?php echo htmlspecialchars($Client_editar['mensagem']); ?></textarea><br/>
+    <input type="hidden" name="id" value="<?php echo $Client_editar['id']; ?>"/>
+    <input type="submit" name="atualiza" value="Modificar Recado" class="btn"/>
 </form>
 </div>
 <?php endif; ?>
-
 <?php
-$seleciona = mysqli_query($conexao, "SELECT * FROM taissa_tabela ORDER BY id DESC");
+$seleciona = mysqli_query($conexao, "SELECT * FROM Client ORDER BY id DESC");
 if(mysqli_num_rows($seleciona) <= 0){
     echo "<p>Nenhum pedido no mural!</p>";
 }else{
     while($res = mysqli_fetch_assoc($seleciona)){
-        echo '<ul class="taissa_tabela">';
-        echo '<li><strong>ID:</strong> ' . $res['id'] . ' | 
-              <a href="moderar.php?acao=excluir&id=' . $res['id'] . '">Remover</a> | 
+        echo '<ul class="recados">';
+        echo '<li><strong>ID:</strong> ' . $res['id'] . ' |
+              <a href="moderar.php?acao=excluir&id=' . $res['id'] . '">Remover</a> |
               <a href="moderar.php?acao=editar&id=' . $res['id'] . '">Modificar</a></li>';
         echo '<li><strong>Nome:</strong> ' . htmlspecialchars($res['nome']) . '</li>';
         echo '<li><strong>Email:</strong> ' . htmlspecialchars($res['email']) . '</li>';
@@ -76,10 +68,3 @@ if(mysqli_num_rows($seleciona) <= 0){
     }
 }
 ?>
-
-<div id="footer">
-</div>
-</div>
-</div>
-</body>
-</html>

@@ -1,13 +1,11 @@
 <?php
 include "conexao.php";
-
-// Inserir novo pedido/recado
 if(isset($_POST['cadastra'])){
     $nome  = mysqli_real_escape_string($conexao, $_POST['nome']);
     $email = mysqli_real_escape_string($conexao, $_POST['email']);
     $msg   = mysqli_real_escape_string($conexao, $_POST['msg']);
 
-    $sql = "INSERT INTO taissa_tabela (nome, email, mensagem) VALUES ('$nome', '$email', '$msg')";
+    $sql = "INSERT INTO Client (name, email, mensagem) VALUES ('$nome', '$email', '$msg')";
     mysqli_query($conexao, $sql) or die("Erro ao inserir dados: " . mysqli_error($conexao));
     header("Location: mural.php");
     exit;
@@ -25,12 +23,12 @@ if(isset($_POST['cadastra'])){
 $(document).ready(function() {
     $("#mural").validate({
         rules: {
-            nome: { required: true, minlength: 4 },
+            name: { required: true, minlength: 4 },
             email: { required: true, email: true },
             msg: { required: true, minlength: 10 }
         },
         messages: {
-            nome: { required: "Digite o seu nome", minlength: "O nome deve ter no mínimo 4 caracteres" },
+            name: { required: "Digite o seu nome", minlength: "O nome deve ter no mínimo 4 caracteres" },
             email: { required: "Digite o seu e-mail", email: "Digite um e-mail válido" },
             msg: { required: "Digite sua mensagem", minlength: "A mensagem deve ter no mínimo 10 caracteres" }
         }
@@ -58,11 +56,11 @@ $(document).ready(function() {
 </div>
 
 <?php
-$seleciona = mysqli_query($conexao, "SELECT * FROM taissa_tabela ORDER BY id DESC");
+$seleciona = mysqli_query($conexao, "SELECT * FROM Client ORDER BY id DESC");
 while($res = mysqli_fetch_assoc($seleciona)){
-    echo '<ul class="taissa_tabela">';
+    echo '<ul class="Client">';
     echo '<li><strong>ID:</strong> ' . $res['id'] . '</li>';
-    echo '<li><strong>Nome:</strong> ' . htmlspecialchars($res['nome']) . '</li>';
+    echo '<li><strong>name:</strong> ' . htmlspecialchars($res['name']) . '</li>';
     echo '<li><strong>Email:</strong> ' . htmlspecialchars($res['email']) . '</li>';
     echo '<li><strong>Mensagem:</strong> ' . nl2br(htmlspecialchars($res['mensagem'])) . '</li>';
     echo '</ul>';
