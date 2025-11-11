@@ -1,102 +1,164 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #111;
-    color: #f5f5f5;
-}
-
-
-header {
-    background-color: #1a1a1a;
-    padding: 20px 40px;
+    background-color: #e8ecf4; /* Fundo mais claro e suave */
+    color: #333;
+    line-height: 1.6;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.7);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #ff3c00;
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: #f5f5f5;
-    transition: color 0.3s;
-}
-
-header nav ul li a:hover {
-    color: #ff3c00;
-}
-
-
-main {
-    padding: 40px;
-}
-
-main h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 36px;
-    color: #ff3c00;
-}
-
-
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-}
-
-.movie-card {
-    background-color: #1a1a1a;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 60, 0, 0.6);
-}
-
-.movie-card img {
-    width: 100%;
-    display: block;
-}
-
-.movie-info {
-    padding: 15px;
-    text-align: center;
-}
-
-.movie-info h3 {
-    font-size: 18px;
-    color: #f5f5f5;
-}
-
-footer {
-    background-color: #1a1a1a;
+    justify-content: center; /* Centraliza horizontalmente o corpo */
+    align-items: center; /* Centraliza verticalmente o corpo */
+    min-height: 100vh; /* Ocupa a altura total da viewport */
     padding: 20px;
-    text-align: center;
-    color: #aaa;
-    margin-top: 40px;
 }
+
+/* Container principal com scroll, caso o conteúdo seja muito longo */
+#geral {
+    width: 100%;
+    max-width: 750px; /* Largura levemente reduzida para foco */
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Sombra mais destacada */
+    overflow-y: auto; /* Adiciona scroll se necessário */
+    max-height: 95vh; /* Limita a altura para que não saia da tela */
+}
+
+/* Cabeçalho */
+#header h1 {
+    text-align: center;
+    color: #3498db; /* Azul moderno */
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #f0f0f0;
+}
+
+/* Formulário de Edição */
+#formulario_mural {
+    background-color: #f7f9fc; /* Fundo suave para o formulário */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #dcdfe6;
+}
+
+#formulario_mural label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95em;
+}
+
+#formulario_mural input[type="text"],
+#formulario_mural textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #c8d0d9;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+#formulario_mural input[type="text"]:focus,
+#formulario_mural textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+#formulario_mural textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Botão */
+.btn {
+    display: block; /* Ocupa a largura total do formulário */
+    width: 100%;
+    background-color: #2ecc71; /* Verde de sucesso */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #27ae60;
+}
+
+/* Lista de Pedidos (Recados) */
+.Client {
+    list-style: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff; 
+    border: 1px solid #f0f0f0;
+    border-left: 6px solid #e74c3c; /* Borda lateral vermelha para moderação */
+    border-radius: 8px;
+    transition: box-shadow 0.3s;
+}
+
+.Client:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.Client li {
+    padding: 4px 0;
+}
+
+.Client strong {
+    color: #2c3e50;
+    font-weight: 700;
+    min-width: 80px; /* Alinha o conteúdo */
+    display: inline-block;
+}
+
+/* Links de Ação (Remover, Modificar) na linha do ID */
+.Client li:first-child {
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.Client li a {
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.Client li a[href*="excluir"] {
+    color: white;
+    background-color: #e74c3c; /* Vermelho para Excluir */
+}
+
+.Client li a[href*="editar"] {
+    color: white;
+    background-color: #f39c12; /* Laranja/Amarelo para Editar */
+}
+
+.Client li a:hover {
+    opacity: 0.9;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensagem de Mural Vazio */
+#geral > p {
+    text-align: center;
+    padding: 20px;
+    background-color: #fef0f0;}

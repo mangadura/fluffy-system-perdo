@@ -1,11 +1,11 @@
 <?php
 include "conexao.php";
 if(isset($_POST['cadastra'])){
-    $nome  = mysqli_real_escape_string($conexao, $_POST['nome']);
+    $name  = mysqli_real_escape_string($conexao, $_POST['name']);
     $email = mysqli_real_escape_string($conexao, $_POST['email']);
     $msg   = mysqli_real_escape_string($conexao, $_POST['msg']);
 
-    $sql = "INSERT INTO Client (name, email, mensagem) VALUES ('$nome', '$email', '$msg')";
+    $sql = "INSERT INTO Client (name, email, mensagem) VALUES ('$name', '$email', '$msg')";
     mysqli_query($conexao, $sql) or die("Erro ao inserir dados: " . mysqli_error($conexao));
     header("Location: mural.php");
     exit;
@@ -16,7 +16,7 @@ if(isset($_POST['cadastra'])){
 <head>
 <meta charset="utf-8"/>
 <title>Mural de pedidos</title>
-<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="home.css"/>
 <script src="scripts/jquery.js"></script>
 <script src="scripts/jquery.validate.js"></script>
 <script>
@@ -28,7 +28,7 @@ $(document).ready(function() {
             msg: { required: true, minlength: 10 }
         },
         messages: {
-            name: { required: "Digite o seu nome", minlength: "O nome deve ter no mínimo 4 caracteres" },
+            name: { required: "Digite o seu name", minlength: "O name deve ter no mínimo 4 caracteres" },
             email: { required: "Digite o seu e-mail", email: "Digite um e-mail válido" },
             msg: { required: "Digite sua mensagem", minlength: "A mensagem deve ter no mínimo 10 caracteres" }
         }
@@ -45,8 +45,9 @@ $(document).ready(function() {
 
 <div id="formulario_mural">
 <form id="mural" method="post">
-    <label>Nome:</label>
-    <input type="text" name="nome"/><br/>
+    <label>:</label>
+    <label>:</label>
+    <input type="text" name="name"/><br/>
     <label>Email:</label>
     <input type="text" name="email"/><br/>
     <label>Mensagem:</label>
