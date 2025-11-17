@@ -3,9 +3,9 @@ include "conexao.php";
 if(isset($_POST['cadastra'])){
     $name  = mysqli_real_escape_string($conexao, $_POST['name']);
     $email = mysqli_real_escape_string($conexao, $_POST['email']);
-    $msg   = mysqli_real_escape_string($conexao, $_POST['msg']);
+    $msg  = mysqli_real_escape_string($conexao, $_POST['msg']);
 
-    $sql = "INSERT INTO Client (name, email, mensagem) VALUES ('$name', '$email', '$msg')";
+    $sql = "INSERT INTO client (name, email, mensagem) VALUES ('$name', '$email', '$msg')";
     mysqli_query($conexao, $sql) or die("Erro ao inserir dados: " . mysqli_error($conexao));
     header("Location: mural.php");
     exit;
@@ -16,7 +16,7 @@ if(isset($_POST['cadastra'])){
 <head>
 <meta charset="utf-8"/>
 <title>Mural de pedidos</title>
-<link rel="stylesheet" href="home.css"/>
+<link rel="stylesheet" href="style.css"/>
 <script src="scripts/jquery.js"></script>
 <script src="scripts/jquery.validate.js"></script>
 <script>
